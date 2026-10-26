@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ishmael Munyalo favicon">
+  <defs>
+    <linearGradient id="bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#5aa9ff" />
+      <stop offset="100%" stop-color="#8e8df8" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="#0b1220"/>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#bg)" opacity="0.22"/>
+  <path d="M20 46V18h9.5c6.8 0 11.1 4.1 11.1 10.2 0 6.3-4.3 10.8-11.1 10.8H20zm8.8-7.5h1.1c3.2 0 5-1.8 5-4.8s-1.8-4.7-5-4.7h-1.1v9.5ZM36 46V18h8.2v28H36z" fill="#f3f6fd"/>
+</svg>

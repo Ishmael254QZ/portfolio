@@ -1,0 +1,17 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+
+# Temporary files
+*.log
+
+# Environment secrets and local application data
+.env
+.env.*
+!.env.example
+backend/data/
+backend/uploads/
+node_modules/

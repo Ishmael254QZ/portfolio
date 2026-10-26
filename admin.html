@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio administrator sign-in and content management." />
+    <meta name="theme-color" content="#dcefe0" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Portfolio Admin | Ishmael Munyalo</title>
+    <script src="js/admin.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header glass">
+      <div class="container nav-shell">
+        <a class="brand" href="index.html">ISHMAEL<span>.</span></a>
+        <a class="text-link" href="index.html">View portfolio</a>
+      </div>
+    </header>
+    <main id="main-content" class="container page-content admin-page">
+      <section class="page-intro glass">
+        <p class="eyebrow">Portfolio administration</p>
+        <h1>Manage your portfolio.</h1>
+        <p class="lead">Sign in to update project listings, portfolio images, and review contact messages.</p>
+      </section>
+
+      <section id="loginPanel" class="glass content-card admin-panel">
+        <h2>Administrator sign in</h2>
+        <form id="loginForm" class="contact-form">
+          <div class="field">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required maxlength="100" />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required maxlength="200" />
+          </div>
+          <button class="button button-primary" type="submit">Sign in</button>
+          <p id="loginStatus" class="form-status" role="status"></p>
+        </form>
+      </section>
+
+      <div id="adminDashboard" hidden>
+        <div class="admin-toolbar glass">
+          <p>Signed in as <strong id="adminUsername"></strong></p>
+          <button id="logoutButton" class="button button-secondary" type="button">Sign out</button>
+        </div>
+        <p id="dashboardStatus" class="form-status" role="status"></p>
+
+        <section class="glass content-card admin-panel">
+          <h2>Profile photo</h2>
+          <p>Upload a JPEG, PNG, or WebP image up to 5 MB and use it on the home page.</p>
+          <form id="profileImageForm" class="admin-upload-form">
+            <div class="field">
+              <label for="profileImage">Choose profile image</label>
+              <input id="profileImage" name="image" type="file" accept="image/jpeg,image/png,image/webp" required />
+            </div>
+            <button class="button button-primary" type="submit">Upload and save profile photo</button>
+          </form>
+        </section>
+
+        <section class="glass content-card admin-panel">
+          <h2 id="projectFormTitle">Add a project</h2>
+          <form id="projectForm" class="contact-form">
+            <input id="projectId" name="id" type="hidden" />
+            <div class="admin-form-grid">
+              <div class="field"><label for="projectTitle">Title</label><input id="projectTitle" name="title" required maxlength="200" /></div>
+              <div class="field"><label for="projectCategory">Category</label><input id="projectCategory" name="category" required maxlength="100" placeholder="Web Development" /></div>
+              <div class="field"><label for="projectStatus">Status</label><input id="projectStatus" name="status" required maxlength="100" placeholder="In Progress" /></div>
+              <div class="field"><label for="projectRepository">Repository URL</label><input id="projectRepository" name="repository" type="url" /></div>
+              <div class="field"><label for="projectDemo">Live demo URL</label><input id="projectDemo" name="demo" type="url" /></div>
+              <div class="field"><label for="projectFeatures">Features (one per line)</label><textarea id="projectFeatures" name="features" rows="3"></textarea></div>
+              <div class="field"><label for="projectTechnologies">Technologies (one per line)</label><textarea id="projectTechnologies" name="technologies" rows="3"></textarea></div>
+              <div class="field"><label for="projectProblem">Problem solved</label><textarea id="projectProblem" name="problem" rows="3"></textarea></div>
+              <div class="field admin-field-wide"><label for="projectDescription">Description</label><textarea id="projectDescription" name="description" rows="4" required></textarea></div>
+              <div class="field admin-field-wide"><label for="projectImage">Project image (optional)</label><input id="projectImage" name="image" type="file" accept="image/jpeg,image/png,image/webp" /><input id="projectImagePath" name="imagePath" type="hidden" /><span id="projectImageStatus" class="form-status"></span></div>
+            </div>
+            <div class="button-row">
+              <button class="button button-primary" type="submit">Save project</button>
+              <button id="cancelEditButton" class="button button-secondary" type="button" hidden>Cancel edit</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="admin-panel">
+          <h2>Projects</h2>
+          <div id="projectList" class="admin-list"></div>
+        </section>
+
+        <section class="admin-panel">
+          <h2>Contact messages</h2>
+          <div id="messageList" class="admin-list"></div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
