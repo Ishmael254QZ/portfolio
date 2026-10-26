@@ -9,10 +9,39 @@ const messageList = document.getElementById('messageList');
 const projectImageInput = document.getElementById('projectImage');
 
 async function apiRequest(url, options = {}) {
-  const response = await fetch(url, options);
+  let response;
+  try {
+    response = await fetch(url, options);
+  } catch {
+    throw new Error('Cannot reach the portfolio backend. Start it with npm start and open the admin page through http://localhost:3000/admin.html.');
+  }
+
   if (response.status === 204) return null;
-  const result = await response.json();
-  if (!response.ok) throw new Error(result.error || `Request failed with HTTP ${response.status}.`);
+
+  const contentType = response.headers.get('content-type') || '';
+  const responseText = await response.text();
+  let result = null;
+  let invalidJson = false;
+  if (contentType.includes('application/json')) {
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      invalidJson = true;
+    }
+  }
+
+  if (!response.ok) {
+    if (result && typeof result.error === 'string') throw new Error(result.error);
+    if (response.status === 403 && !contentType.includes('application/json')) {
+      throw new Error('The host returned Forbidden instead of a portfolio API response. Run npm start and open http://localhost:3000/admin.html, or deploy the Express backend alongside the site.');
+    }
+    throw new Error(`The portfolio API returned HTTP ${response.status}${contentType.includes('application/json') ? ' with an invalid response.' : ' instead of JSON.'}`);
+  }
+
+  if (!contentType.includes('application/json') || invalidJson || !result || typeof result !== 'object') {
+    throw new Error('The portfolio API returned an unexpected response. Make sure the Express backend is running and serving this page.');
+  }
+
   return result;
 }
 
