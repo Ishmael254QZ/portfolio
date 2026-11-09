@@ -85,3 +85,5 @@ Administrator sign-in: `http://localhost:3000/admin.html`. Sign in with the user
 Use HTTPS in production and set `NODE_ENV=production`, `SESSION_SECRET`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` through the hosting provider's secret/environment settings. Run `npm run seed:admin` once against the persistent database. Configure durable storage and backups for `backend/data/` and `backend/uploads/`; ephemeral server storage will lose database content and uploaded images on redeploy. Do not expose `.env`, the database, or backend source as public static files.
 
 The interface preserves the original theme toggle, responsive navigation, project filtering, multi-page content, existing image assets, and contact form validation.
+
+The home page also highlights up to three projects from the public portfolio API, including each project's challenge, technologies, and available links. Add a project image in the admin area to show a visual preview on both the home and Projects pages. The home page includes an education timeline, current interests, and social links; keep its education dates in sync with `education.html` when they change.

@@ -105,6 +105,7 @@ function setupRevealAnimations() {
 function renderProject(project) {
   const card = document.createElement('article');
   card.className = 'project-card glass';
+  if (project.id !== undefined) card.id = `project-${project.id}`;
 
   const visual = document.createElement('div');
   visual.className = 'project-visual';
@@ -157,6 +158,82 @@ function renderProject(project) {
   return card;
 }
 
+function renderFeaturedProject(project) {
+  const card = document.createElement('article');
+  card.className = 'featured-card glass';
+
+  const visual = document.createElement('div');
+  visual.className = 'featured-visual';
+  if (project.image) {
+    const image = document.createElement('img');
+    image.src = project.image;
+    image.alt = `${project.title} project preview`;
+    image.loading = 'lazy';
+    visual.appendChild(image);
+  } else {
+    const mark = document.createElement('span');
+    mark.textContent = project.title;
+    visual.appendChild(mark);
+  }
+
+  const category = document.createElement('p');
+  category.className = 'eyebrow';
+  category.textContent = project.category;
+
+  const title = document.createElement('h3');
+  title.textContent = project.title;
+
+  const description = document.createElement('p');
+  description.className = 'featured-description';
+  description.textContent = project.description;
+
+  const caseStudy = document.createElement('p');
+  caseStudy.className = 'featured-case-study';
+  const caseStudyLabel = document.createElement('strong');
+  caseStudyLabel.textContent = 'The challenge';
+  const caseStudyText = document.createElement('span');
+  caseStudyText.textContent = project.problem;
+  caseStudy.append(caseStudyLabel, caseStudyText);
+
+  const technologies = document.createElement('div');
+  technologies.className = 'project-tech';
+  project.technologies.forEach((technology) => {
+    const tag = document.createElement('span');
+    tag.textContent = technology;
+    technologies.appendChild(tag);
+  });
+
+  const links = document.createElement('div');
+  links.className = 'project-links';
+  if (project.demo) links.appendChild(createProjectLink(project.demo, 'Live demo'));
+  if (project.repository) links.appendChild(createProjectLink(project.repository, 'GitHub'));
+  const details = document.createElement('a');
+  details.href = project.id === undefined ? 'projects.html' : `projects.html#project-${project.id}`;
+  details.textContent = 'Project details';
+  links.appendChild(details);
+
+  card.append(visual, category, title, description, caseStudy, technologies, links);
+  return card;
+}
+
+function setupFeaturedProjects() {
+  const grid = document.querySelector('[data-featured-projects]');
+  if (!grid) return;
+
+  grid.replaceChildren();
+  if (projectData.length === 0) {
+    const message = document.createElement('p');
+    message.className = 'featured-empty glass';
+    message.textContent = 'Projects are being added. Check back soon to see what I’ve been working on.';
+    grid.appendChild(message);
+    return;
+  }
+
+  projectData.slice(0, 3).forEach((project) => {
+    grid.appendChild(renderFeaturedProject(project));
+  });
+}
+
 function createProjectLink(url, label) {
   const link = document.createElement('a');
   link.href = url;
@@ -168,6 +245,7 @@ function createProjectLink(url, label) {
 
 function setupProjectFilters() {
   const grid = document.getElementById('projectGrid');
+  setupFeaturedProjects();
   if (!grid) return;
 
   const buttons = document.querySelectorAll('.filter-button');
