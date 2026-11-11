@@ -27,7 +27,7 @@ my-portfolio/
 └── package.json
 ```
 
-## Requirements
+##  the Requirements
 
 - Node.js 20 or later and npm.
 - SQLite is included through `better-sqlite3`; no separate database service is needed.
